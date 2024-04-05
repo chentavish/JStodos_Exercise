@@ -32,13 +32,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Add event listener to toggle strikethrough style
         newTodo.addEventListener("click", function() {
-        if (newTodo.style.textDecoration === "line-through") {
-            newTodo.style.textDecoration = "none";
-        } else {
-            newTodo.style.textDecoration = "line-through";
-        }
+            if (newTodo.style.textDecoration === "line-through") {
+                newTodo.style.textDecoration = "none";
+            } else {
+                newTodo.style.textDecoration = "line-through";
+            }
         });
-        
+
         let removeButton = document.createElement("button");
         removeButton.innerText = "Remove";
         newTodo.appendChild(removeButton);
@@ -47,6 +47,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function removeTask(taskElement) {
         taskElement.remove();
+        // Check if list is empty after removing a task
+        if (todoList.childElementCount === 0) {
+            localStorage.removeItem("todos"); // Clear local storage
+        }
     }
 
     function saveTodoToLocalStorage(task) {
